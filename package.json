@@ -1,0 +1,27 @@
+{
+  "name": "arkib",
+  "version": "0.0.1",
+  "description": "Unofficial API for National Archives of Malaysia (Arkib Negara)",
+  "main": "arkib.js",
+  "keywords": [
+    "malaysia",
+    "archive",
+    "arkib",
+    "api"
+  ],
+  "author": "Adib Zaini",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "fast-xml-parser": "^3.19.0",
+    "html-to-text": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ADIBzTER/arkib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ADIBzTER/arkib/issues"
+  },
+  "homepage": "https://github.com/ADIBzTER/arkib#readme"
+}
