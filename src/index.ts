@@ -1,7 +1,7 @@
 const axios = require('axios').default;
 
-const parser = require('fast-xml-parser');
-const { htmlToText } = require('html-to-text');
+import parser from 'fast-xml-parser';
+import { htmlToText } from 'html-to-text';
 
 const hidsData = require('./hids-urls');
 
@@ -11,9 +11,11 @@ const getEventToday = () => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
 
-  return axios.post(hidsData.getEventUrl(day, month)).then(({ data }) => {
+  // Change this any into appropriate type safe interface later
+  return axios.post(hidsData.getEventUrl(day, month)).then(({ data }: any) => {
     let descBm = data.description_bm;
     let descEn = data.description_eng;
+    let new_data;
 
     descBm = cleanDescription(descBm);
     descEn = cleanDescription(descEn);
@@ -28,34 +30,36 @@ const getAllEventsToday = async () => {
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth() + 1;
-  
+
   let currentPage = 1;
   let lastPage = 1;
   let lastNumber = 0;
 
-  let dataList = [];
+  let dataList: any[] = [];
 
   // Get first page
+  // Change this any into appropriate type safe interface later
   await axios
     .post(hidsData.getAllEventsUrl(day, month, currentPage))
-    .then(({ data: res }) => {
+    .then(({ data: res }: any) => {
       dataList = [...res.data];
       lastPage = res.last_page;
       lastNumber = res.data[res.data.length - 1]['no'];
 
       currentPage++;
     })
-    .catch((err) => console.error(err));
+    .catch((err: Error) => console.error(err));
 
   // Get the rest of pages
   for (; currentPage <= lastPage; currentPage++) {
+    // Change this any into appropriate type safe interface later
     await axios
       .post(hidsData.getAllEventsUrl(day, month, currentPage))
-      .then(({ data: res }) => {
-        res = res.data.map((data) => ({ ...data, no: ++lastNumber }));
+      .then(({ data: res }: any) => {
+        res = res.data.map((data: any) => ({ ...data, no: ++lastNumber }));
         dataList = [...dataList, ...res];
       })
-      .catch((err) => console.error(err));
+      .catch((err: Error) => console.error(err));
   }
 
   return new Promise((resolve, reject) => {
@@ -64,7 +68,8 @@ const getAllEventsToday = async () => {
   });
 };
 
-const cleanDescription = (desc) => {
+// Change this any into appropriate type safe interface later
+const cleanDescription = (desc: any) => {
   // Description does not exists
   if (!desc) return;
 
@@ -75,6 +80,7 @@ const cleanDescription = (desc) => {
     const options = {
       cdataTagname: '__cdata',
     };
+    // @ts-ignore
     desc = parser.convertToJson(parser.getTraversalObj(desc, options), options)[
       'dynamic-content'
     ];

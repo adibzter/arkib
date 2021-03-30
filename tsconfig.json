@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "target": "es2017",
+    "baseUrl": "./src"
+  },
+  "compileOnSave": true,
+  "include": ["src/**/*.ts", "src/*.log"],
+  "exclude": ["node_modules"]
+}
