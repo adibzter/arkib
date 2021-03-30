@@ -1,6 +1,6 @@
 {
   "name": "arkib",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Unofficial API for National Archives of Malaysia (Arkib Negara)",
   "main": "src/index.js",
   "keywords": [

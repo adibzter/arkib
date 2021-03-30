@@ -24,7 +24,11 @@ const getEventToday = () => {
   });
 };
 
-const getAllEventsToday = async (day, month) => {
+const getAllEventsToday = async () => {
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  
   let currentPage = 1;
   let lastPage = 1;
   let lastNumber = 0;
