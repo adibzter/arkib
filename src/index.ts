@@ -16,7 +16,7 @@ const getEventToday = async () => {
   let data: any;
 
   try {
-    data = await axios.post(hidsData.getEventUrl(day, month));
+    data = (await axios.post(hidsData.getEventUrl(day, month))).data;
     let new_data: object;
 
     // Should be string
