@@ -4,13 +4,13 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
-    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "target": "es2017",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "declaration": true
   },
   "compileOnSave": true,
-  "include": ["src/**/*.ts", "src/*.log"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
