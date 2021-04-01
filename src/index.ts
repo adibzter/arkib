@@ -1,21 +1,27 @@
-const axios = require('axios').default;
+import axios from 'axios';
 
 import parser from 'fast-xml-parser';
 import { htmlToText } from 'html-to-text';
 
-const hidsData = require('./hids-urls');
+import hidsData from './hids-urls';
+
+const date = new Date();
 
 // Get one today's history
-const getEventToday = () => {
-  const date = new Date();
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
+const getEventToday = async () => {
+  const day: number = date.getDate();
+  const month: number = date.getMonth() + 1;
 
   // Change this any into appropriate type safe interface later
-  return axios.post(hidsData.getEventUrl(day, month)).then(({ data }: any) => {
-    let descBm = data.description_bm;
-    let descEn = data.description_eng;
-    let new_data;
+  let data: any;
+
+  try {
+    data = await axios.post(hidsData.getEventUrl(day, month));
+    let new_data: object;
+
+    // Should be string
+    let descBm: any = data.description_bm;
+    let descEn: any = data.description_eng;
 
     descBm = cleanDescription(descBm);
     descEn = cleanDescription(descEn);
@@ -23,7 +29,10 @@ const getEventToday = () => {
     new_data = { ...data, description_bm: descBm, description_eng: descEn };
 
     return new_data;
-  });
+  } catch (err) {
+    console.error(err);
+    throw 'Cannot fetch data';
+  }
 };
 
 const getAllEventsToday = async () => {
@@ -51,25 +60,30 @@ const getAllEventsToday = async () => {
     .catch((err: Error) => console.error(err));
 
   // Get the rest of pages
-  for (; currentPage <= lastPage; currentPage++) {
+  let pages: object[] = [];
+  while (currentPage <= lastPage) {
     // Change this any into appropriate type safe interface later
-    await axios
-      .post(hidsData.getAllEventsUrl(day, month, currentPage))
-      .then(({ data: res }: any) => {
-        res = res.data.map((data: any) => ({ ...data, no: ++lastNumber }));
-        dataList = [...dataList, ...res];
-      })
-      .catch((err: Error) => console.error(err));
+    pages.push(axios.post(hidsData.getAllEventsUrl(day, month, currentPage)));
+    currentPage++;
   }
 
-  return new Promise((resolve, reject) => {
-    if (dataList) resolve(dataList);
-    reject('Cannot fetch data');
+  let results: object[] = [];
+  try {
+    results = await Promise.all(pages);
+  } catch (err) {
+    console.error(err);
+    throw 'Cannot fetch data';
+  }
+
+  results.map(({ data }: any) => {
+    data = data.data;
+    data.map((el: object) => dataList.push({ ...el, no: ++lastNumber }));
   });
+
+  return dataList;
 };
 
-// Change this any into appropriate type safe interface later
-const cleanDescription = (desc: any) => {
+const cleanDescription = (desc: string) => {
   // Description does not exists
   if (!desc) return;
 
@@ -90,4 +104,4 @@ const cleanDescription = (desc: any) => {
   return desc;
 };
 
-module.exports = { getEventToday, getAllEventsToday };
+export = { getEventToday, getAllEventsToday };
