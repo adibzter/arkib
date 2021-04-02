@@ -7,11 +7,21 @@ import hidsData from './hids-urls';
 
 const date = new Date();
 
+// Get one history of specified date
+const getEventByDate = async (day: number, month: number) => {
+  return getEvent(day, month);
+};
+
 // Get one today's history
 const getEventToday = async () => {
   const day: number = date.getDate();
   const month: number = date.getMonth() + 1;
 
+  return getEvent(day, month);
+};
+
+// Get one history
+const getEvent = async (day: number, month: number) => {
   // Change this any into appropriate type safe interface later
   let data: any;
 
@@ -35,11 +45,18 @@ const getEventToday = async () => {
   }
 };
 
-const getAllEventsToday = async () => {
-  const date = new Date();
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
+const getAllEventsByDate = async (day: number, month: number) => {
+  return getAllEvents(day, month);
+};
 
+const getAllEventsToday = async () => {
+  const day: number = date.getDate();
+  const month: number = date.getMonth() + 1;
+
+  return getAllEvents(day, month);
+};
+
+const getAllEvents = async (day: number, month: number) => {
   let currentPage = 1;
   let lastPage = 1;
   let lastNumber = 0;
@@ -104,4 +121,9 @@ const cleanDescription = (desc: string) => {
   return desc;
 };
 
-export = { getEventToday, getAllEventsToday };
+export = {
+  getEventToday,
+  getAllEventsToday,
+  getEventByDate,
+  getAllEventsByDate,
+};

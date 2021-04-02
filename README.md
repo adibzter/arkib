@@ -162,6 +162,34 @@ This method will return an **array of Javascript object** of all today's histori
 ]
 ```
 
+### `getEventByDate(day: number, month: number)`
+#### Description
+This method will return a **Javascript object** of one historical event specified by date.
+**Return: Javascript Object**
+
+**Note:** Sometimes, there is no english version of title and description.
+
+##### Example Usage
+
+```
+// Get one event on 1st January
+arkib.getEventByDate(1, 1);
+```
+
+### `getAllEventsByDate(day: number, month: number)`
+#### Description
+This method will return an **array of Javascript object** of all historical event specified by date.
+**Return: Array of Javascript Object**
+
+**Note:** Sometimes, there is no english version of title and description.
+
+##### Example Usage
+
+```
+// Get all events on 29th February
+arkib.getAllEventsByDate(29, 2);
+```
+
 ## License
 
 This project is licensed under the [MIT License](https://github.com/ADIBzTER/arkib/blob/master/LICENSE)
