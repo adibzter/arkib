@@ -31,7 +31,7 @@ arkib.getEventToday()
 ```
 const arkib = require('arkib')
 
-(async => {
+(async () => {
   try {
     const historyToday = await arkib.getEventToday();
     console.log(historyToday);
@@ -71,7 +71,7 @@ const arkib = require('arkib')
 
 ## Available methods
 
-### `getEventToday()`
+> ### `getEventToday()`
 #### Descriptions
 This method will return **Javascript object** of one today's historical moment. It based on your server's timezone.
 **Return: Javascript Object**
@@ -105,7 +105,7 @@ This method will return **Javascript object** of one today's historical moment. 
 }
 ```
 
-### `getAllEventsToday()`
+> ### `getAllEventsToday()`
 #### Description
 This method will return an **array of Javascript object** of all today's historical moment. It based on your server's timezone.
 **Return: Array of Javascript Object**
@@ -162,7 +162,7 @@ This method will return an **array of Javascript object** of all today's histori
 ]
 ```
 
-### `getEventByDate(day: number, month: number)`
+> ### `getEventByDate(day: number, month: number)`
 #### Description
 This method will return a **Javascript object** of one historical event specified by date.
 **Return: Javascript Object**
@@ -176,7 +176,7 @@ This method will return a **Javascript object** of one historical event specifie
 arkib.getEventByDate(1, 1);
 ```
 
-### `getAllEventsByDate(day: number, month: number)`
+> ### `getAllEventsByDate(day: number, month: number)`
 #### Description
 This method will return an **array of Javascript object** of all historical event specified by date.
 **Return: Array of Javascript Object**
@@ -188,6 +188,43 @@ This method will return an **array of Javascript object** of all historical even
 ```
 // Get all events on 29th February
 arkib.getAllEventsByDate(29, 2);
+```
+
+> ### `getVideoDetails(id: number, language: 'bm' | 'eng', options?: DownloadVideo | undefined)`
+
+```
+// Pass options if you want to download video
+options = {
+  location: string;
+  fileName: string;
+}
+```
+#### Description
+This method will return **Javascript object** of the video details.
+**Return: Javascript Object**
+
+**Note:** This method messed up a little because the 'id' is not consistant and we don't know which id get `200 OK`, which id get `500 Internal Server Error`
+
+##### Example Usage
+
+```
+// Get video details for malay version without downloading the video
+arkib.getVideoDetails(3, 'bm');
+```
+
+> ### `downloadVideo(id: number, location: string, fileName: string)`
+
+#### Description
+This method will return **string** of the downloaded video location in your pc.
+**Return: string**
+
+**Note:** This method messed up a little because the 'id' is not consistant and we don't know which id get `200 OK`, which id get `500 Internal Server Error`
+
+##### Example Usage
+
+```
+// This will return D:/this_is_filename.mp4
+arkib.downloadvideo(3, 'D:/', 'this_is_filename');
 ```
 
 ## License

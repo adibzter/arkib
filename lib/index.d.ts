@@ -1,7 +1,11 @@
+import { VideoDetailsInterface, DownloadVideo } from './interfaces/VideoDetailsInterface';
+import { EventTodayInterface, AllEventsTodayInterface } from './interfaces/EventTodayInterface';
 declare const _default: {
-    getEventToday: () => Promise<object>;
-    getAllEventsToday: () => Promise<any[]>;
-    getEventByDate: (day: number, month: number) => Promise<object>;
-    getAllEventsByDate: (day: number, month: number) => Promise<any[]>;
+    getEventToday: () => Promise<EventTodayInterface>;
+    getAllEventsToday: () => Promise<AllEventsTodayInterface[]>;
+    getEventByDate: (day: number, month: number) => Promise<EventTodayInterface>;
+    getAllEventsByDate: (day: number, month: number) => Promise<AllEventsTodayInterface[]>;
+    getVideoDetails: (id: number, language: "bm" | "eng", options?: DownloadVideo | undefined) => Promise<VideoDetailsInterface>;
+    downloadVideo: (id: number, location: string, fileName?: string | undefined) => Promise<string>;
 };
 export = _default;
