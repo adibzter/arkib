@@ -6,7 +6,7 @@
     "outDir": "lib",
     "strict": true,
     "esModuleInterop": true,
-    "target": "es2017",
+    "target": "ES5",
     "baseUrl": "./src",
     "declaration": true
   },

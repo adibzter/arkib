@@ -6,6 +6,6 @@ declare const _default: {
     getEventByDate: (day: number, month: number) => Promise<EventTodayInterface>;
     getAllEventsByDate: (day: number, month: number) => Promise<AllEventsTodayInterface[]>;
     getVideoDetails: (id: number, language: "bm" | "eng", options?: DownloadVideo | undefined) => Promise<VideoDetailsInterface>;
-    downloadVideo: (id: number, location: string, fileName?: string | undefined) => Promise<string>;
+    downloadVideo: (id: number, savePath?: string, fileName?: string) => Promise<string>;
 };
 export = _default;

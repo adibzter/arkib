@@ -148,7 +148,7 @@ const getVideoDetails = async (
       let ids: string[] = new_data.url.split('/');
       let id = +ids[ids.length - 1];
 
-      const res = await downloadVideo(id, options.location, options.fileName);
+      const res = await downloadVideo(id, options.savePath, options.fileName);
       console.log(res);
     }
 
@@ -161,16 +161,10 @@ const getVideoDetails = async (
 // Download Video
 const downloadVideo = async (
   id: number,
-  location: string,
-  fileName?: string
+  savePath: string = '.',
+  fileName: string = id.toString()
 ): Promise<string> => {
-  // No savePath
-  if (!location) throw 'Save location not specified';
-
-  // No file name
-  if (!fileName) fileName = id.toString();
-
-  location = `${location}/${fileName}.mp4`;
+  savePath = `${savePath}/${fileName}.mp4`;
 
   try {
     const res = await axios.get(hidsUrl.getSampleVideoUrl(id), {
@@ -181,13 +175,13 @@ const downloadVideo = async (
     if (!res) throw 'Video not exists';
 
     // Create stream to write into file
-    const writeStream = fs.createWriteStream(location);
+    const writeStream = fs.createWriteStream(savePath);
 
     // Piping data into file
     res.data.pipe(writeStream);
 
     // Wait until finish piping
-    location = await new Promise((resolve) => {
+    savePath = await new Promise((resolve) => {
       writeStream
         .on('ready', () => console.log('Download Started...'))
         .on('error', (err) => {
@@ -195,12 +189,12 @@ const downloadVideo = async (
         })
         .on('finish', () => {
           console.log('Download Finished');
-          console.log(`File location: ${location}`);
-          resolve(location);
+          console.log(`File location: ${savePath}`);
+          resolve(savePath);
         });
     });
 
-    return location;
+    return savePath;
   } catch (err) {
     throw 'Failed to download video';
   }

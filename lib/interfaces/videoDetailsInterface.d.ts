@@ -25,6 +25,6 @@ export interface VideoDetailsInterface {
     };
 }
 export interface DownloadVideo {
-    location: string;
+    savePath?: string;
     fileName?: string;
 }
