@@ -14,7 +14,6 @@ import {
   AllEventsTodayInterface,
 } from './interfaces/EventTodayInterface';
 
-const date = new Date();
 const HOST = 'https://hids.arkib.gov.my';
 
 // Get one history of specified date
@@ -24,6 +23,7 @@ const getEventByDate = async (day: number, month: number) => {
 
 // Get one today's history
 const getEventToday = async () => {
+  const date = new Date();
   const day: number = date.getDate();
   const month: number = date.getMonth() + 1;
 
@@ -62,6 +62,7 @@ const getAllEventsByDate = async (day: number, month: number) => {
 };
 
 const getAllEventsToday = async () => {
+  const date = new Date();
   const day: number = date.getDate();
   const month: number = date.getMonth() + 1;
 

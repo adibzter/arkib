@@ -1,0 +1,5 @@
+src/
+.prettierrc
+data.json
+test.js
+urls.txt
