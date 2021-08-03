@@ -23,6 +23,7 @@ export interface VideoDetailsInterface {
     title_bm: string;
     title_eng: string;
   };
+  file_path?: string;
 }
 
 export interface DownloadVideo {

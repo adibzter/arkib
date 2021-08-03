@@ -150,7 +150,10 @@ const getVideoDetails = async (
       let id = +ids[ids.length - 1];
 
       const res = await downloadVideo(id, options.savePath, options.fileName);
-      console.log(res);
+      new_data = {
+        ...new_data,
+        file_path: res,
+      };
     }
 
     return new_data;

@@ -195,7 +195,7 @@ arkib.getAllEventsByDate(29, 2);
 ```
 // Pass options if you want to download video
 options = {
-  location: string;
+  savePath: string;
   fileName: string;
 }
 ```
@@ -212,10 +212,10 @@ This method will return **Javascript object** of the video details.
 arkib.getVideoDetails(3, 'bm');
 ```
 
-> ### `downloadVideo(id: number, location: string, fileName: string)`
+> ### `downloadVideo(id: number, savePath: string, fileName: string)`
 
 #### Description
-This method will return **string** of the downloaded video location in your pc.
+This method will return **string** of the downloaded video path in your pc.
 **Return: string**
 
 **Note:** This method messed up a little because the 'id' is not consistant and we don't know which id get `200 OK`, which id get `500 Internal Server Error`
